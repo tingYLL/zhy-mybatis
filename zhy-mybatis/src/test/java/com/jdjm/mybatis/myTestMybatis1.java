@@ -1,5 +1,6 @@
 package com.jdjm.mybatis;
 
+import com.jdjm.mybatis.utils.SqlSessionUtil;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -38,5 +39,16 @@ public class myTestMybatis1 {
             }
         }
 
+    }
+
+
+    //通过SqlSessionUtil工具类获取SqlSession
+    @Test
+    public void test2(){
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        int count = sqlSession.insert("insertStory");
+        System.out.println("插入几条数据:"+count);
+        sqlSession.commit();
+        sqlSession.close();
     }
 }

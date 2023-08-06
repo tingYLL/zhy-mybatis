@@ -4,6 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jlkjl">
     <insert id="insertStory">
-        insert into story_t0(userId,`name`,title,story,tag) values(10001,"小王","天玄资质","重生之我踏马拿肾肝",1)
+        insert into story_t0(userId,`name`,title,story,tag) values(10002,"小包","天玄资质","重生之我踏马拿肾肝",1)
     </insert>
 </mapper>

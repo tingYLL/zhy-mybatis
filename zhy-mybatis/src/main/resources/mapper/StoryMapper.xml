@@ -6,4 +6,8 @@
     <insert id="insertStory">
         insert into story_t0(userId,`name`,title,story,tag) values(10003,"林北","天玄资质","重生之我踏马拿肾肝",1)
     </insert>
+
+    <insert id="insertStoryByMap">
+        insert into story_t0(userId,`name`,story) values(#{userId},#{name},#{story});
+    </insert>
 </mapper>

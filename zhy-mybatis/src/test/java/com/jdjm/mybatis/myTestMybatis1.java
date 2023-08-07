@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @version v1.0
@@ -50,5 +52,20 @@ public class myTestMybatis1 {
         System.out.println("插入几条数据:"+count);
         sqlSession.commit();
         sqlSession.close();
+    }
+
+    /**
+     * Map传参
+     */
+    @Test
+    public void test3(){
+        Map map = new HashMap();
+        map.put("userId",1012);
+        map.put("name","哈哈");
+        map.put("story","这是故事内容");
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        sqlSession.insert("insertStoryByMap",map);
+        sqlSession.commit();
+        sqlSession.close();;
     }
 }

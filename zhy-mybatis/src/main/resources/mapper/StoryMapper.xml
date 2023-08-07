@@ -10,4 +10,8 @@
     <insert id="insertStoryByMap">
         insert into story_t0(userId,`name`,story) values(#{userId},#{name},#{story});
     </insert>
+
+    <insert id="insertStoryByPOJO">
+        insert into story_t0(userId,`name`,story,is_deleted,create_at) values(#{userId},#{name},#{story},#{isDeleted},#{createAt});
+    </insert>
 </mapper>

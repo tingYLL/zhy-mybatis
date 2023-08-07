@@ -1,5 +1,6 @@
 package com.jdjm.mybatis;
 
+import com.jdjm.mybatis.pojo.Story;
 import com.jdjm.mybatis.utils.SqlSessionUtil;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -67,5 +68,24 @@ public class myTestMybatis1 {
         sqlSession.insert("insertStoryByMap",map);
         sqlSession.commit();
         sqlSession.close();;
+    }
+
+    /**
+     * 实体类传参 完成一次插入
+     */
+    @Test
+    public void test4(){
+        Story story = new Story();
+        story.setStory("从前有座山");
+        story.setName("nihao ");
+        story.setTag(1);
+        story.setUserId(1003232);
+        story.setIsDeleted(1);
+        story.setCreateAt("2023-11-2");
+        story.setUpdateAt("2023-12-2");
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        sqlSession.insert("insertStoryByPOJO",story);
+        sqlSession.commit();
+        sqlSession.close();
     }
 }

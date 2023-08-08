@@ -11,7 +11,21 @@
         insert into story_t0(userId,`name`,story) values(#{userId},#{name},#{story});
     </insert>
 
+<!--    <insert id="insertStoryByPOJO">-->
+<!--        insert into story_t0(userId,`name`,story,is_deleted,create_at) values(#{userId},#{name},#{story},#{isDeleted},#{createAt});-->
+<!--    </insert>-->
+
     <insert id="insertStoryByPOJO">
-        insert into story_t0(userId,`name`,story,is_deleted,create_at) values(#{userId},#{name},#{story},#{isDeleted},#{createAt});
+        insert into story_t0(userId,`name`,story,is_deleted,create_at) values(#{userId},#{xyz},#{story},#{isDeleted},#{createAt});
     </insert>
+
+<!--    只有一个的时候 #{}中写什么都可以-->
+    <delete id="deleteRecord">
+        delete from story_t0 where id = #{safasfasf}
+    </delete>
+
+    <update id="updateRecord">
+        update story_t0 set userId=#{userId}, story=#{story},`name`=#{name},tag=#{tag},create_at = #{createAt}
+                            where id=#{id}
+    </update>
 </mapper>

@@ -77,7 +77,7 @@ public class myTestMybatis1 {
     public void test4(){
         Story story = new Story();
         story.setStory("从前有座山");
-        story.setName("nihao ");
+        story.setName("huihkhk");
         story.setTag(1);
         story.setUserId(1003232);
         story.setIsDeleted(1);
@@ -85,6 +85,38 @@ public class myTestMybatis1 {
         story.setUpdateAt("2023-12-2");
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         sqlSession.insert("insertStoryByPOJO",story);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    /**
+     * 删除
+     */
+    @Test
+    public void test5(){
+        Story story = new Story();
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        int count = sqlSession.delete("deleteRecord", 21);
+        sqlSession.commit();
+        sqlSession.close();
+    }
+
+    /**
+     * 更新操作
+     */
+    @Test
+    public void test6(){
+        Story story = new Story();
+        story.setId(1);
+        story.setStory("从前有座山");
+        story.setName("huihkhk");
+        story.setTag(1);
+        story.setUserId(1003232);
+        story.setIsDeleted(1);
+        story.setCreateAt("2023-11-2");
+        story.setUpdateAt("2023-12-2");
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        int count = sqlSession.update("updateRecord", story);
         sqlSession.commit();
         sqlSession.close();
     }

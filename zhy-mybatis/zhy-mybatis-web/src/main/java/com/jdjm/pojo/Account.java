@@ -10,10 +10,10 @@ import lombok.Data;
  */
 
 @Data
-public class account {
+public class Account {
     private Long id;
 
-    private String accountNo;
+    private String accountno;
 
     private Double balance;
 }

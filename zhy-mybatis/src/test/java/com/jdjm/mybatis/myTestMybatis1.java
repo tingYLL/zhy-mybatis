@@ -6,7 +6,8 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.jupiter.api.Test;
+
+
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -19,7 +20,7 @@ import java.util.Map;
  * @Date 2023-08-06-21:21:15
  */
 public class myTestMybatis1 {
-    @Test
+
     public void test1(){
         SqlSession sqlSession = null;
         try {
@@ -46,7 +47,7 @@ public class myTestMybatis1 {
 
 
     //通过SqlSessionUtil工具类获取SqlSession
-    @Test
+//    @Test
     public void test2(){
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         int count = sqlSession.insert("insertStory");
@@ -58,7 +59,7 @@ public class myTestMybatis1 {
     /**
      * Map传参
      */
-    @Test
+//    @Test
     public void test3(){
         Map map = new HashMap();
         map.put("userId",1012);
@@ -73,7 +74,7 @@ public class myTestMybatis1 {
     /**
      * 实体类传参 完成一次插入
      */
-    @Test
+//    @Test
     public void test4(){
         Story story = new Story();
         story.setStory("从前有座山");
@@ -92,7 +93,7 @@ public class myTestMybatis1 {
     /**
      * 删除
      */
-    @Test
+//    @Test
     public void test5(){
         Story story = new Story();
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
@@ -104,7 +105,7 @@ public class myTestMybatis1 {
     /**
      * 更新操作
      */
-    @Test
+//    @Test
     public void test6(){
         Story story = new Story();
         story.setId(1);

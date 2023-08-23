@@ -4,4 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="account">
 
+    <select id="selectAccount" resultType="com.jdjm.pojo.Account">
+        select * from account where accountno = #{accountno}
+    </select>
+
+    <update id="updateBalance">
+        update account set balance = #{balance} where accountno = #{accountno}
+    </update>
 </mapper>

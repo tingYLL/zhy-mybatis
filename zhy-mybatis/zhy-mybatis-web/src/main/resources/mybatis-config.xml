@@ -17,6 +17,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mapper/StoryMapper.xml"/>
+        <mapper resource="mapper/AccountMapper.xml"/>
     </mappers>
 </configuration>

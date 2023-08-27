@@ -18,7 +18,7 @@ public class AccountDaoImpl implements AccountDao {
         Account account = sqlSession.selectOne("account.selectAccount",accountNO);
 
         //查询不用commit
-        sqlSession.close();
+//        sqlSession.close();
         return account;
     }
 
@@ -26,8 +26,17 @@ public class AccountDaoImpl implements AccountDao {
     public int updateBalance(Account account) {
         SqlSession sqlSession = SqlSessionUtil.getSqlSession();
         int count = sqlSession.update("account.updateBalance", account);
-        sqlSession.commit();
-        sqlSession.close();
+
+
+        /**
+         * sqlSession的关闭移到service层中了
+         * 改进后使用ThreadLocal的方式获得SqlSession，controller调service，service调dao，这三个层的方法都是处于同一个线程中的
+         * ThreadLocal以线程为key，SqlSession为value，所以就可以实现这三个层使用的是同一个SqlSession
+         * 之所以在service处于SqlSession的关闭是因为 在dao层做crud的时候如果发送错误，然后又提交的话会导致数据库中数据错误
+         * 比如a扣了钱但b没有加钱
+         */
+//        sqlSession.commit();
+//        sqlSession.close();
         return count;
     }
 

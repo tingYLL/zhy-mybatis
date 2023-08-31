@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdjm.mapper.SysRoleMapper">
+    <insert id="insertAndGetId" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_role(id,role_name,role_code,description)
+            values(null,#{roleName},#{roleCode},#{description})
+    </insert>
+
+    <select id="queryRole" resultType="com.jdjm.entity.SysRole">
+        select
+            id,
+            role_name as roleName,
+            role_code as roleCode,
+            description,
+            create_time as createTime,
+            update_time as updateTime
+            from sys_role where role_name = ${roleName}
+    </select>
+
+    <select id="queryAllRoleOrderBy" resultType="com.jdjm.entity.SysRole">
+        select
+            id,
+            role_name as roleName,
+            role_code as roleCode,
+            description,
+            create_time as createTime,
+            update_time as updateTime
+        from sys_role order by id ${ascOrDesc}
+    </select>
+
+    <delete id="deleteBatchByIds">
+        delete from sys_role where id in (${ids})
+    </delete>
+
+
+    <select id="queryRoleByLike" resultType="com.jdjm.entity.SysRole">
+        select  id,
+                role_name as roleName,
+                role_code as roleCode,
+                description,
+                create_time as createTime,
+                update_time as updateTime
+        from sys_role where role_name like
+                            concat('%',#{roleName},'%')
+        
+    </select>
+
+
+    <select id="queryMap" resultType="java.util.Map">
+        select * from sys_role where id = #{id}
+    </select>
+
+
+    <select id="queryMapAll" resultType="java.util.Map">
+        select * from sys_role
+    </select>
+
+
+</mapper>

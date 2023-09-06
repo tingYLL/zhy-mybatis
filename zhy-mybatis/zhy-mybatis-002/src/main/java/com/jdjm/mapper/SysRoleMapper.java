@@ -28,10 +28,12 @@ public interface SysRoleMapper {
     public List<Map<String,Object>> queryMapAll();
 
     @MapKey("role_name")
+//    @MapKey("id")
     public Map<String,Map<String,Object>> queryMapBigAll();
 
     //通过<resultMap>做表字段与实体类属性的隐射
     public List<SysRole> queryByResultMap();
 
+    //开启了驼峰命名自动映射以后
     public List<SysRole> queryAllAuto();
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdjm.mapper.DynamicSqlMapper">
+
+
+<!--    where标签 当if条件都为空的时候就不会生成where；-->
+<!--    同时，当查询条件前面有多余的and 或者or的时候 也会自动去除，但是不会去除后面的or 或者and ，-->
+<!--    例如 :role_name like "%"#{vo.roleName}"%" and-->
+    <select id="queryRole" resultType="com.jdjm.entity.SysRole">
+        select * from sys_role
+        <where>
+            <if test="vo.roleName != null and vo.roleName != ''">
+                and role_name like "%"#{vo.roleName}"%"
+            </if>
+            <if test="vo.roleCode != null and vo.roleCode != ''">
+                and role_code = #{vo.roleCode}
+            </if>
+            <if test="vo.description != null and vo.description != ''">
+                and description like "%"#{vo.description}"%"
+            </if>
+        </where>
+    </select>
+</mapper>

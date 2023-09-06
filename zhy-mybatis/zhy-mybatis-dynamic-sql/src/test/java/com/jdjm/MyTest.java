@@ -25,4 +25,15 @@ public class MyTest {
 
         sysRoles.forEach(System.out::println);
     }
+
+
+    @Test
+    public void testQueryRoleByTrim(){
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        DynamicSqlMapper mapper = sqlSession.getMapper(DynamicSqlMapper.class);
+//        List<SysRole> sysRoles = mapper.queryRoleByTrim(new SysRoleDTO("", "SYSTEM", "管理员"));
+//        List<SysRole> sysRoles = mapper.queryRole(new SysRoleDTO("", "", ""));
+        List<SysRole> sysRoles = mapper.queryRole(new SysRoleDTO("管理员", "", null));
+        sysRoles.forEach(System.out::println);
+    }
 }

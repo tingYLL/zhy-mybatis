@@ -10,4 +10,7 @@ import java.util.List;
 public interface DynamicSqlMapper {
 
     public List<SysRole> queryRole(@Param("vo") SysRoleDTO sysRoleDTO);
+
+
+    public List<SysRole> queryRoleByTrim(@Param("vo") SysRoleDTO sysRoleDTO);
 }

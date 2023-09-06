@@ -22,4 +22,26 @@
             </if>
         </where>
     </select>
+
+
+
+<!--    prefix：加前缀-->
+<!--    suffix: 加后缀-->
+<!--    suffixOverrides:删除后缀-->
+<!--    prefix="where"的意思是在trim标签所包裹的内容前面加上where（前提是条件不是全为null）-->
+<!--    suffixOverrides="and|or" 会只能地删除后面的and 或者or-->
+    <select id="queryRoleByTrim" resultType="com.jdjm.entity.SysRole">
+        select * from sys_role
+        <trim prefix="where" suffixOverrides="and|or" >
+            <if test="vo.roleName != null and vo.roleName != ''">
+                 role_name like "%"#{vo.roleName}"%" and
+            </if>
+            <if test="vo.roleCode != null and vo.roleCode != ''">
+                 role_code = #{vo.roleCode} and
+            </if>
+            <if test="vo.description != null and vo.description != ''">
+                 description like "%"#{vo.description}"%"
+            </if>
+        </trim>
+    </select>
 </mapper>

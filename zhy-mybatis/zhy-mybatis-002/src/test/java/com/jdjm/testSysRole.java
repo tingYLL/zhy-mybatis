@@ -94,4 +94,32 @@ public class testSysRole {
         System.out.println(maps);
     }
 
+    @Test
+    public void testQueryMapBigAll(){
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        SysRoleMapper mapper = sqlSession.getMapper(SysRoleMapper.class);
+        Map<String, Map<String, Object>> map = mapper.queryMapBigAll();
+        System.out.println(map);
+    }
+
+    @Test
+    public void testQueryByResultMap(){
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        SysRoleMapper mapper = sqlSession.getMapper(SysRoleMapper.class);
+        List<SysRole> sysRoles = mapper.queryByResultMap();
+        for (SysRole sysRole : sysRoles) {
+            System.out.println(sysRole);
+        }
+    }
+
+    @Test
+    public void testQueryAllAuto(){
+        SqlSession sqlSession = SqlSessionUtil.getSqlSession();
+        SysRoleMapper mapper = sqlSession.getMapper(SysRoleMapper.class);
+        List<SysRole> sysRoles = mapper.queryAllAuto();
+        for (SysRole sysRole : sysRoles) {
+            System.out.println(sysRole);
+        }
+    }
+
 }

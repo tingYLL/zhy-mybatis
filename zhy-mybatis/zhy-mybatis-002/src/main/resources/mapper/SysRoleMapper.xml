@@ -58,4 +58,30 @@
     </select>
 
 
+    <select id="queryMapBigAll" resultType="java.util.Map">
+        select * from sys_role
+    </select>
+
+
+    <resultMap id="myMap" type="com.jdjm.entity.SysRole">
+        <id property="id" column="id"></id>
+        <result property="roleName" column="role_name"></result>
+        <result property="roleCode" column="role_code"></result>
+<!--        相同的可以省略-->
+        <result property="description" column="description"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="updateTime" column="update_time"></result>
+        <result property="isDeleted" column="is_deleted"></result>
+    </resultMap>
+
+    <select id="queryByResultMap" resultMap="myMap">
+        select * from sys_role
+    </select>
+
+
+    <select id="queryAllAuto" resultType="com.jdjm.entity.SysRole">
+        select * from sys_role
+    </select>
+
+
 </mapper>

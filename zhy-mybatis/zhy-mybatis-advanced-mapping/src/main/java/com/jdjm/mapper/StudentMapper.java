@@ -12,4 +12,8 @@ public interface StudentMapper {
 
 //    分步查询
     public Student queryStudentBySet(Integer sid);
+
+
+    //分步查询懒加载
+    public Student queryStudentBySetLazy(Integer sid);
 }

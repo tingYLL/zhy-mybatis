@@ -37,9 +37,27 @@
         <result column="sname" property="name"></result>
         <association property="clazz"
                      select="com.jdjm.mapper.ClazzMapper.queryClazz"
-                     column="cid"/>
+                     column="cid"
+                     fetchType="lazy"
+        />
     </resultMap>
     <select id="queryStudentBySet" resultMap="MyMapBySet">
+        select sid,sname,cid from t_student where sid = #{sid}
+    </select>
+
+
+<!--    fetchType="eager"是关闭全局懒加载 一般来说在mybatis-config.xml中会全局开启懒加载 如果要关闭可以在需要关闭的地方设置fetchType="eager"-->
+    <resultMap id="MyMapBySetLazy" type="student">
+        <id column="sid" property="id"></id>
+        <result column="sname" property="name"></result>
+        <association property="clazz"
+                     select="com.jdjm.mapper.ClazzMapper.queryClazz"
+                     column="cid"
+                     fetchType="eager"
+        />
+    </resultMap>
+
+    <select id="queryStudentBySetLazy" resultMap="MyMapBySetLazy">
         select sid,sname,cid from t_student where sid = #{sid}
     </select>
 </mapper>

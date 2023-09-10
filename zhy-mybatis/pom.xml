@@ -12,6 +12,7 @@
         <module>zhy-mybatis-web</module>
         <module>zhy-mybatis-002</module>
         <module>zhy-mybatis-dynamic-sql</module>
+        <module>zhy-mybatis-advanced-mapping</module>
     </modules>
 
     <properties>

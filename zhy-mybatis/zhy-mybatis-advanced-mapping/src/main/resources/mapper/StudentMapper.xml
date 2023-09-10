@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdjm.mapper.StudentMapper">
+
+    <resultMap id="myMap" type="student">
+        <id column="sid" property="id"></id>
+        <result column="sname" property="name"></result>
+        <result column="cid" property="clazz.id" ></result>
+        <result column="cname" property="clazz.name"></result>
+    </resultMap>
+
+    <select id="queryStudent" resultMap="myMap">
+        select * from t_student  stu left join t_class cl on stu.cid = cl.cid where sid = #{id}
+    </select>
+
+
+
+    <resultMap id="myMapAssocation" type="student">
+        <id column="sid" property="id"></id>
+        <result column="sname" property="name"></result>
+        <association property="clazz" javaType="clazz">
+            <id column="cid" property="id"></id>
+            <result column="cname" property="name"></result>
+        </association>
+    </resultMap>
+    <select id="queryStudentAssociation" resultMap="myMapAssocation">
+        select stu.sid,stu.sname,cl.cid,cl.cname from t_student stu left join t_class cl on stu.cid = cl.cid where sid =#{id}
+    </select>
+
+
+<!--    解释一下：这里的column代表  select sid,sname,cid from t_student where sid = #{sid} 查出来的cid作为子查询的查询条件-->
+<!--    即班级表根据学生表的cid去查询班级名称-->
+    <resultMap id="MyMapBySet" type="student">
+        <id column="sid" property="id"></id>
+        <result column="sname" property="name"></result>
+        <association property="clazz"
+                     select="com.jdjm.mapper.ClazzMapper.queryClazz"
+                     column="cid"/>
+    </resultMap>
+    <select id="queryStudentBySet" resultMap="MyMapBySet">
+        select sid,sname,cid from t_student where sid = #{sid}
+    </select>
+</mapper>

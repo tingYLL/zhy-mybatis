@@ -4,8 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jdjm.mapper.DynamicSqlMapper">
 
-
-<!--    where标签 当if条件都为空的时候就不会生成where；-->
+    <!--    where标签 当if条件都为空的时候就不会生成where；-->
 <!--    同时，当查询条件前面有多余的and 或者or的时候 也会自动去除，但是不会去除后面的or 或者and ，-->
 <!--    例如 :role_name like "%"#{vo.roleName}"%" and-->
     <select id="queryRole" resultType="com.jdjm.entity.SysRole">
@@ -29,7 +28,7 @@
 <!--    suffix: 加后缀-->
 <!--    suffixOverrides:删除后缀-->
 <!--    prefix="where"的意思是在trim标签所包裹的内容前面加上where（前提是条件不是全为null）-->
-<!--    suffixOverrides="and|or" 会只能地删除后面的and 或者or-->
+<!--    suffixOverrides="and|or" 会智能地删除后面的and 或者or-->
     <select id="queryRoleByTrim" resultType="com.jdjm.entity.SysRole">
         select * from sys_role
         <trim prefix="where" suffixOverrides="and|or" >
@@ -44,4 +43,74 @@
             </if>
         </trim>
     </select>
+
+
+<!--          update sys_role set role_name = #{vo.roleName},role_code = #{vo.roleCode},description = #{vo.description},-->
+<!--                               create_time = #{vo.createTime},update_time = #{vo.updateTime} where id=#{vo.id}-->
+
+<!--    像上面这种写法的set 在做更新操作的时候会把原有记录不为null的字段变为null（如果传进来的参数为null的话）-->
+    <update id="updateBySet">
+
+        update sys_role
+
+        <set>
+            <if test="vo.createTime != null and vo.createTime != ''">create_time = #{vo.createTime},</if>
+            <if test="vo.description !=null and vo.description != ''">description = #{vo.description},</if>
+            <if test="vo.roleName != null and vo.roleName !=''">role_name = #{vo.roleName},</if>
+            <if test="vo.roleCode !=null and vo.roleCode !=''">role_code = #{vo.roleCode},</if>
+        </set>
+
+        where id=#{vo.id}
+    </update>
+
+
+<!--    choose标签配合when，other标签一起使用 ，类似if-else if-else这种结构，只会选择一个条件-->
+<!--    哪个条件为不空就选择哪个 并且只会选择一个-->
+    <select id="queryByChoose" resultType="com.jdjm.entity.SysRole">
+        select * from sys_role
+        <where>
+            <choose>
+                <when test="vo.roleName != null and vo.roleName != ''">role_name like "%"#{vo.roleName}"%"</when>
+                <when test="vo.roleCode != null and vo.roleCode != ''">role_code = #{vo.roleCode}</when>
+                <when test="vo.description != null and vo.description != ''">description = #{vo.description}</when>
+                <otherwise>role_name like "%"#{vo.roleName}""</otherwise>
+            </choose>
+        </where>
+    </select>
+
+
+    <insert id="insertBatchByForeach">
+        insert into sys_role (role_name,role_code) values
+        <foreach collection="list" item="sysRole" separator=",">
+            (#{sysRole.roleName},#{sysRole.roleCode})
+        </foreach>
+    </insert>
+
+
+<!--    <delete id="delByBatchForeach">-->
+<!--        update  sys_role set is_deleted = 1 where  id in-->
+<!--        <foreach collection="ids" item="id" open="(" close=")" separator=",">-->
+<!--            #{id}-->
+<!--        </foreach>-->
+<!--    </delete>-->
+<!--    或者这样写-->
+<!--    注意open和close是在把所有item包括起来后 在最外层加了个（） 而不是每个item外面都包括（）-->
+    <delete id="delByBatchForeach">
+        update  sys_role set is_deleted = 1 where  id in
+        (
+        <foreach collection="ids" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+
+    <delete id="delByBatchForeachOr">
+        update sys_role set is_deleted = 1 where
+        <foreach collection="ids" item="id" separator="or">
+            id = #{id}
+        </foreach>
+    </delete>
+
+
 </mapper>

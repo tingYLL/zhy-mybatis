@@ -24,6 +24,7 @@ public class SqlSessionUtil {
     }
 
 
+    //调用静态方法，触发类加载 sqlSessionFactory被new出来，有了sqlSessionFactory后，在判断sqlSession为空后，就可以openSession()
     public static SqlSession getSqlSession(){
         SqlSession sqlSession = threadLocal.get();
         if(sqlSession == null){
